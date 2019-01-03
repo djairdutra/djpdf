@@ -24,14 +24,14 @@ Script para manipulação de arquivos PDF
 9) Copiar arquivos e renomear de forma sequencial crescente
 
 ## Dicas
-1) Instalando via **apt-get** de uma só vez todos os softwares necessários para o funcionamento do script:
+*1) Instalando via **apt-get** de uma só vez todos os softwares necessários para o funcionamento do script:*
 
 _sudo apt-get install -y pdftk dialog tesseract-ocr tesseract-ocr-por tesseract-ocr-eng imagemagick_
 
-2) Transformando os arquivos de script em executáveis (executar na pasta dos scripts):
+*2) Transformando os arquivos de script em executáveis (executar na pasta dos scripts):*
 
 _sudo chmod a+x djpdf pdfocr_
 
-3) Automatizando a chamada do script (basta digitar **djpdf** sem a necessidade de apontar para o caminho arquivo)
+*3) Automatizando a chamada do script (basta digitar **djpdf** sem a necessidade de apontar para o caminho arquivo)*
 
 _sudo ln -s [caminho_completo_do_arquivo_djpdf] /usr/sbin/djpdf_
