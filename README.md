@@ -1,5 +1,8 @@
 # djpdf v1.1
-Script para manipulação de arquivos PDF
+Script para manipulação de arquivos PDF em Shell
+
+## Sobre
+_Este script nasceu da necessidade diária de editar e manipular arquivos PDF, porém, dependendo da ação realizada, era necessário utilizar softwares ou comandos diferentes, como **convert**, **pdftk** ou mesmo um script em Ruby para conversão de um PDF comum (digitalizado como imagem) em um PDF no formato OCR. Procurei, portanto, reunir as principais ações que uso rotineiramente em um só script, facilitando meu trabalho e poupando tempo._
 
 ## Requisitos de instalação
 * pdftk
@@ -24,14 +27,18 @@ Script para manipulação de arquivos PDF
 9) Copiar arquivos e renomear de forma sequencial crescente
 
 ## Dicas
-*1) Instalando via **apt-get** de uma só vez todos os softwares necessários para o funcionamento do script:*
+**1) Instalando via **apt-get** de uma só vez todos os softwares necessários para o funcionamento do script:**
 
 _sudo apt-get install -y pdftk dialog tesseract-ocr tesseract-ocr-por tesseract-ocr-eng imagemagick_
 
-*2) Transformando os arquivos de script em executáveis (executar na pasta dos scripts):*
+**2) Transformando os arquivos de script em executáveis (executar na pasta dos scripts):**
 
 _sudo chmod a+x djpdf pdfocr_
 
-*3) Automatizando a chamada do script (basta digitar **djpdf** sem a necessidade de apontar para o caminho arquivo)*
+**3) Automatizando a chamada do script (basta digitar **djpdf** sem a necessidade de apontar para o caminho arquivo)**
 
 _sudo ln -s [caminho_completo_do_arquivo_djpdf] /usr/sbin/djpdf_
+
+## Menu Principal
+
+<img src="http://ideiati.com/img/djpdf.png">
