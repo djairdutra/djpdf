@@ -16,4 +16,9 @@ Script para manipulação de arquivos PDF
 1) Dividir um arquivo PDF em várias páginas
 2) Unir 2 ou mais arquivos PDF em um só arquivo
 3) Transformar arquivo PDF comum em um arquivo PDF OCR
-4) Converter imagens em 
+4) Converter imagens em PDF
+5) Girar o arquivo PDF em 90º (sentido horário)
+6) Girar o arquivo PDF em 90º (sentido anti-horário)
+7) Girar o arquivo PDF em 180º
+8) Separar páginas pares e ímpares de um arquivo PDF
+9) Copiar arquivos e renomear de forma sequencial crescente
