@@ -25,10 +25,13 @@ Script para manipulação de arquivos PDF
 
 ## Dicas
 1) Instalando via **apt-get** de uma só vez todos os softwares necessários para o funcionamento do script:
+
 sudo apt-get install -y pdftk dialog tesseract-ocr tesseract-ocr-por tesseract-ocr-eng imagemagick
 
 2) Transformando os arquivos de script em executáveis (executar na pasta dos scripts):
+
 sudo chmod a+x djpdf pdfocr
 
 3) Automatizando a chamada do script (basta digitar **djpdf** sem a necessidade de apontar para o caminho arquivo)
+
 sudo ln -s [caminho_completo_do_arquivo_djpdf] /usr/sbin/djpdf
