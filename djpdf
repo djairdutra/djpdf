@@ -1,0 +1,281 @@
+#!/bin/bash
+
+# Pegando a altura e largura máximas da tela
+max_altura=$(dialog --stdout --print-maxsize | cut -d , -f 1 | sed "s/ //g" | cut -d : -f 2)
+max_largura=$(dialog --stdout --print-maxsize | cut -d , -f 2 | sed "s/ //g")
+
+# Retirando 20 linhas da altura e 30 colunas da largura
+max_altura=$(expr $max_altura - 20)
+max_largura=$(expr $max_largura - 30)
+
+parimpar(){
+
+	arquivo=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER ARQUIVO' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+		if [ -f $arquivo ]; then
+			destino="pares-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Separando páginas do arquivo $arquivo" 0 0
+			pdftk $arquivo cat 1-endodd output PAG-ÍMPARES.pdf
+			pdftk $arquivo cat 1-endeven output PAG-PARES.pdf
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Concluído" --msgbox "Foram criados 2 arquivos novos." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Erro" --msgbox "O arquivo $arquivo não existe, ou o seu nome contém espaços e caracteres especiais." 0 0
+			dividir
+		fi
+	else
+		menu
+	fi
+
+}
+
+gira180(){
+
+	arquivo=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER ARQUIVO' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -f $arquivo ]; then
+			destino="gira-180-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Girando o arquivo $arquivo" 0 0
+			pdftk $arquivo cat 1-endsouth output 180-GRAUS.pdf
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Concluído" --msgbox "O arquivo $arquivo foi girado em 180 graus." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Erro" --msgbox "O arquivo $arquivo não existe, ou o seu nome contém espaços e caracteres especiais." 0 0
+			dividir
+		fi
+	else
+		menu
+	fi
+
+}
+
+gira90(){
+
+	arquivo=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER ARQUIVO' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -f $arquivo ]; then
+			destino="gira-90-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Girando o arquivo $arquivo" 0 0
+			pdftk $arquivo cat 1-endeast output 90-GRAUS-HOR.pdf
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Concluído" --msgbox "O arquivo $arquivo foi girado em 90 graus no sentido horário." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Erro" --msgbox "O arquivo $arquivo não existe, ou o seu nome contém espaços e caracteres especiais." 0 0
+			dividir
+		fi
+	else
+		menu
+	fi
+
+}
+
+gira90anti(){
+
+	arquivo=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER ARQUIVO' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -f $arquivo ]; then
+			destino="gira-90-anti-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Girando o arquivo $arquivo" 0 0
+			pdftk $arquivo cat 1-endwest output 90-GRAUS-ANTI-HOR.pdf
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Concluído" --msgbox "O arquivo $arquivo foi girado em 90 graus no sentido anti-horário." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Erro" --msgbox "O arquivo $arquivo não existe, ou o seu nome contém espaços e caracteres especiais." 0 0
+			dividir
+		fi
+	else
+		menu
+	fi
+
+}
+
+dividir(){
+
+	arquivo=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER ARQUIVO' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -f $arquivo ]; then
+			destino="separados-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Separando as páginas do arquivo" 0 0
+			pdftk $arquivo burst
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Concluído" --msgbox "O arquivo foi separado na pasta $destino." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Erro" --msgbox "O arquivo $arquivo não existe, ou o seu nome contém espaços e caracteres especiais." 0 0
+			dividir
+		fi
+	else
+		menu
+	fi
+
+}
+
+juntar(){
+
+	dialog --backtitle "DJPDF v 1.1" --stdout --title "Atenção" --ok-label "OK" --msgbox "Para juntar arqivos, coloque todos na mesma pasta." 0 0
+
+	pasta=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER PASTA' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -e $pasta ]; then
+			destino="uniao-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Jutando os arquivos da pasta $pasta" 0 0
+			entrada="$pasta/*.pdf"
+			saida="ALL-IN-ONE.pdf"
+			pdftk $entrada cat output $saida
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Concluído" --ok-label "OK" --msgbox "Todos os arquivos PDF da pasta $pasta foram unidos em um só arquivo na pasta $destino." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Erro" --ok-label "OK" --msgbox "A pasta $pasta não existe ou não contém arquivos PDF." 0 0
+			menu
+		fi
+	else
+		menu
+	fi
+
+}
+
+convertepdf(){
+
+	dialog --backtitle "DJPDF v 1.1" --stdout --title "Atenção" --ok-label "OK" --msgbox "Coloque todos os arquivos na mesma pasta." 0 0
+
+	pasta=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER PASTA DE IMAGENS' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -e $pasta ]; then
+			destino="img-pdf-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde..." --infobox "Convertendo todas as imagens em um único PDF." 0 0
+			entrada="$pasta/*"
+			saida="IMAGENS-CONVERTIDAS.pdf"
+			convert $entrada $saida
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Concluído" --ok-label "OK" --msgbox "Arquivos convertidos com sucesso." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Erro" --ok-label "OK" --msgbox "Caminho não localizado, ou a pasta não contém arquivos de imagem." 0 0
+			menu
+		fi
+	else
+		menu
+	fi
+
+}
+
+converteocr(){
+
+	arquivo=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER ARQUIVO' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -f $arquivo ]; then
+			destino="ocr-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			saida="$destino/CONVERTIDO-OCR.pdf" &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde..." --ok-label "Iniciar" --msgbox "Durante a conversão será exibido um log do processo e pode demorar alguns minutos. No final da conversão, você será avisado." 0 0
+			./pdfocr -i $arquivo -o $saida &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Concluído" --ok-label "OK" --msgbox "O arquivo $saida está em formato OCR." 0 0 &&
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Erro" --ok-label "OK" --msgbox "Arquivo não localizado, ou não é um arquivo PDF." 0 0
+			menu
+		fi
+	else
+		menu
+	fi
+
+}
+
+renomear(){
+
+	dialog --backtitle "DJPDF v 1.1" --stdout --title "Como funciona?" --ok-label "OK" --msgbox "Esta opção pega todos os arquivos de uma pasta e renomeia para outra pasta numa sequência crescente." 0 0
+
+	pasta=$(dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title 'ESCOLHER PASTA PARA COPIAR' --fselect `pwd` $max_altura $max_largura)
+
+	if [ "$?" == "0" ]; then
+
+		if [ -e $pasta ]; then
+			destino="seq-$(date +%d-%m-%Y_%H-%M-%S)" &&
+			mkdir $destino &&
+			cd $destino &&
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Aguarde" --infobox "Copiando todos os arquivos de imagem da pasta $pasta e renomeando no novo destino $destino." 0 0
+			entrada="$pasta/*"
+			saida="seq"
+			convert -adjoin $entrada $saida
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Concluído" --ok-label "OK" --msgbox "Arquivos renomeados com sucesso." 0 0
+			menu
+		else
+			dialog --backtitle "DJPDF v 1.1" --stdout --title "Erro" --ok-label "OK" --msgbox "Caminho não localizado, ou a pasta não contém arquivos de imagem." 0 0
+			menu
+		fi
+	else
+		menu
+	fi	
+}
+
+menu(){
+	optmenu=$(dialog --backtitle "DJPDF v 1.1" --title "MENU PRINCIPAL" --ok-label "OK" --cancel-label "SAIR" --default-item 1 --stdout --menu "ESCOLHA UMA OPÇÃO " 0 0 0 \
+	1 'DIVIDIR ARQUIVOS PDF EM VÁRIAS PÁGINAS' \
+	2 'JUNTAR VÁRIOS ARQUIVOS EM UM SÓ PDF' \
+	3 'CONVERTER PDF EM OCR' \
+	4 'CONVERTER IMAGENS EM PDF' \
+	5 'GIRAR 90 GRAUS NO SENTIDO HORÁRIO' \
+	6 'GIRAR 90 GRAUS NO SENTIDO ANTI-HORÁRIO' \
+	7 'GIRAR 180 GRAUS' \
+	8 'SEPARAR PÁGINAS PARES E ÍMPARES' \
+	9 'COPIAR E RENOMEAR EM SEQUENCIA CRESCENTE' \
+	10 'SOBRE')
+
+	if [ "$?" == "1" ]; then
+		clear
+	elif [ "$?" == "255" ]; then
+		menu
+	elif [ "$optmenu" == "1" ]; then
+		dividir
+	elif [ "$optmenu" == "2" ]; then
+		juntar
+	elif [ "$optmenu" == "3" ]; then
+		converteocr
+	elif [ "$optmenu" == "4" ]; then
+		convertepdf
+	elif [ "$optmenu" == "5" ]; then
+		gira90
+	elif [ "$optmenu" == "6" ]; then
+		gira90anti
+	elif [ "$optmenu" == "7" ]; then
+		gira180
+	elif [ "$optmenu" == "8" ]; then
+		parimpar
+	elif [ "$optmenu" == "9" ]; then
+		renomear
+	elif [ "$optmenu" == "10" ]; then
+		dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Sobre" --msgbox "Script para manipulação de arquivos PDF.\n\n" 0 0
+		menu
+	else
+		menu
+	fi
+}
+
+menu
