@@ -11,8 +11,8 @@ _Este script nasceu da necessidade diária de editar e manipular arquivos PDF, p
 * tesseract-ocr-por
 * tesseract-ocr-eng
 * imagemagick
-* Scripts **djpdf** e **pdfpcr** devem estar no mesmo diretório
-* Scripts **djpdf** e **pdfpcr** devem ser executáveis
+* Scripts **djpdf** e **pdfocr** devem estar no mesmo diretório
+* Scripts **djpdf** e **pdfocr** devem ser executáveis
 * Permissão de escrita no diretório dos scripts
 
 ## Funções do script (menu)
