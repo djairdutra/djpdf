@@ -26,6 +26,7 @@ parimpar(){
 			dialog --backtitle "DJPDF v 1.1" --stdout --ok-label "OK" --title "Erro" --msgbox "O arquivo $arquivo não existe, ou o seu nome contém espaços e caracteres especiais." 0 0
 			dividir
 		fi
+		#teste
 	else
 		menu
 	fi
